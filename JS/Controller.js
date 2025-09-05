@@ -1,6 +1,6 @@
 //knapper og håndtering af bruger input.
 
-document.getElementById("saveButton") 
+document.getElementById("save") 
 addEventListener("click",()=>{
     const input = document.getElementById("save").value;
     const data = Model.getData();
@@ -11,6 +11,6 @@ addEventListener("click",()=>{
 
 //CREATE BUTTON
 let createButton = document.createElement("button")
-createButton.innerText = "Make New List"
+createButton.innerText = "MakeNewList"
 // createButton.addEventListener("click", createInput)
 mainContainer.appendChild("MakeNewListButton")

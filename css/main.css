@@ -21,10 +21,13 @@ h1{
    color: black; 
    background-color:var(--blue) ;
 }
+div input{
+    font-family: "Merienda";
+}
 
 /*BUTTONS*/
 button {
-  
+    font-family: "Merienda";
     border:5px solid #333131;
 
 }

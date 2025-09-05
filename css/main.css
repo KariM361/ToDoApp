@@ -12,20 +12,28 @@
 }
 main{
     font-family: "Merienda";
+
 }
 
 h1{
    font-family: "Merienda";
+   text-align: center;
    color: black; 
    background-color:var(--blue) ;
 }
 
-//BUTTONS
-button{
+/*BUTTONS*/
+button {
+  
     border:5px solid #333131;
+
 }
-#Huske{
+#Huske {
     border-style:solid;
     background-color: #333131;
-    color:white:
+    color:white;
 }
+
+/* #Maincontainer {
+    background-color: red;
+} */

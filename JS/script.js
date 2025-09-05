@@ -74,13 +74,22 @@ makeListView(currentData)
 //#endregion
 
 //#region View
-function makeListView(Data){
+function makeListView(data){
     console.log('makeListView');
-    //vis data til bruger
+    //tøm contaentSection
+  mainContainerSection.innerHTML='';
 
-   Data.lists.forEach((list) => {
+    data.lists.forEach((list,index) => {
         console.log(list.listName);
-        
+
+        let listContainer=document.createElement('div')
+ //vis liste,//tempel string
+
+ listContainer.innerHTML=`<h2 onclick="listViewCallBack('showList',${index})">${list.listName}</h2>
+ <button onclick="listViewCallBack('showList',${index})">delete</button>
+ <button onclick="listViewCallBack('showList',${index})">edit</button>`
+
+        mainContainerSection.appendChild(listContainer)
    });
 }
 //#endregion

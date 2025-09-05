@@ -10,7 +10,8 @@ initApp()
 //#region Model code
 function getData(){
     console.log('getData');
- return JSON.parse(localStorage.getItem('toDoApp_v1')) 
+    let data=localStorage.getItem('toDoApp_v1')
+    return JSON.parse(data)
     
 }
 function saveData(myData){
@@ -28,13 +29,13 @@ let newData={
    
     lists:[//dataobjecter
         {
-            listname: 'liste 1',
+            listName: 'liste 1',
             item:[{
                 name:'item 1', done:false },{name:'item 2', done:true},{name:'item 3', done:true}]
         },
  
         {
-            listname: 'indkøb',
+            listName: 'indkøb',
             item:[{
                 name:'kød', done:false },{name:'salat', done:true},{name:'sovs', done:false}]
         }
@@ -53,25 +54,35 @@ return newData;
 //#region Controller code
 function initApp(){
     console.log('initApp');
+    console.log(getData());
     
 //hent data
 currentData = getData()//er defineret globals
 
+//evaluer data
 if (currentData==null) {
 //vi har ikke data
    currentData=makeNewData()
    saveData(currentData)
-  
-
+   
 } 
 
-//evaluer data
-
+//vi har data
+makeListView(currentData)
 }
+
 //#endregion
 
 //#region View
+function makeListView(Data){
+    console.log('makeListView');
+    //vis data til bruger
 
+   Data.lists.forEach((list) => {
+        console.log(list.listName);
+        
+   });
+}
 //#endregion
 
 

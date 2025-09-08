@@ -23,11 +23,12 @@ function saveData(myData){
 
 function makeNewData(){
     console.log('makeNewData');
-// dummy data husk at tømme lister inden deployment
+
+    // dummy data husk at tømme lister inden deployment
 let newData={
     darkMode:false,
    
-    lists:[//dataobjecter
+    lists:[  //dataobjecter
         {
             listName: 'liste 1',
             item:[{
@@ -83,8 +84,8 @@ function makeListView(data){
         console.log(list.listName);
 
         let listContainer=document.createElement('div')
- //vis liste,//tempel string
 
+        //vis liste,//tempel string
  listContainer.innerHTML=`<h2 onclick="listViewCallBack('showList',${index})">${list.listName}</h2>
  <button onclick="listViewCallBack('showList',${index})">delete</button>
  <button onclick="listViewCallBack('showList',${index})">edit</button>`
@@ -93,11 +94,6 @@ function makeListView(data){
    });
 }
 //#endregion
-
-
-
-
-
 
 
 // let objData = getData()

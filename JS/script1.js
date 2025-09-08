@@ -30,6 +30,15 @@ let newData={
    
     lists:[  //dataobjecter
         {
+            listName: 'liste 1',
+            item:[{
+                name:'item 1', done:false },{name:'item 2', done:true},{name:'item 3', done:true}]
+        },
+ 
+        {
+            listName: 'indkøb',
+            item:[{
+                name:'kød', done:false },{name:'salat', done:true},{name:'sovs', done:false}]
         }
 ]
     
@@ -85,51 +94,3 @@ function makeListView(data){
    });
 }
 //#endregion
-
-//buttons
-
-// Opret knappen Huskelist
-let Husk = document.createElement("button");
-Husk.innerText = "Huskeliste";
-
-
-// Tilføj funktionalitet
-Husk.addEventListener("click", createtask);
-
-function createtask(){
-    let taskinput = document. createElement('input')
-    document.body.appendChild(taskinput);
-    // Opret knappen save
-    let saveButton = document.createElement("button");
-    saveButton.innerText = "save";
-    saveButton.addEventListener("click", saveData)
-
-    // Tilføj knappen til siden (f.eks. body)
-    document.body.appendChild(saveButton);
-}
-
-// Tilføj knappen til siden (f.eks. body)
-document.body.appendChild(Husk);
-
-
-//  <button id=" MakeNewList">MakeNewList</button>
-
-
-
-// let objData = getData()
-// let obj ={}
-
-// function saveData(){
-//     localStorage.setItem("",JSON,stringify(obj))
-// }
-// //CREATE BUTTON
-// let createButton = document.createElement("button")
-// createButton.innerText = "create new"
-// createButton.addEventListener("click", createInput)
-// mainContainer.appendChild(createButton)
-
-// //SAVE BUTTON
-// let saveButton = document.createElement("button")
-// saveButton.innerText = "save"
-// saveButton.addEventListener("click", saveData)
-// mainContainer.appendChild(saveButton)

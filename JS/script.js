@@ -15,10 +15,12 @@ function getData(){
     
 }
 function saveData(myData){
-    console.log('saveData');
-    let serializedData = JSON.stringify(myData)
+    console.log(myData);
+    const data = getData()
+    data.lists.push(myData)
 
-    localStorage.setItem('toDoApp_v1', serializedData);
+    localStorage.setItem('toDoApp_v1', JSON.stringify(data));
+
 }
 
 function makeNewData(){
@@ -30,6 +32,7 @@ let newData={
    
     lists:[  //dataobjecter
         {
+
         }
 ]
     
@@ -63,8 +66,6 @@ if (currentData==null) {
 makeListView(currentData)
 }
 
-//#endregion
-
 //#region View
 function makeListView(data){
     console.log('makeListView');
@@ -85,6 +86,8 @@ function makeListView(data){
    });
 }
 //#endregion
+//#endregion
+
 
 //buttons
 
@@ -97,12 +100,21 @@ Husk.innerText = "Huskeliste";
 Husk.addEventListener("click", createtask);
 
 function createtask(){
-    let taskinput = document. createElement('input')
+    let taskinput = document.createElement('input')
     document.body.appendChild(taskinput);
+
+    console.log(taskinput.value)
     // Opret knappen save
     let saveButton = document.createElement("button");
     saveButton.innerText = "save";
-    saveButton.addEventListener("click", saveData)
+    saveButton.addEventListener("click",() =>{
+        const taskning = taskinput.value 
+        saveData({
+            name:taskning, 
+            id:crypto.randomUUID(),
+            tasks: [] 
+        })
+    })
 
     // Tilføj knappen til siden (f.eks. body)
     document.body.appendChild(saveButton);

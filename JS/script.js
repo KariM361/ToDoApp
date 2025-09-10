@@ -1,8 +1,6 @@
 //#region globals
 const mainContainerSection = document.getElementById('mainContainer');
 let currentData = null;
-
-
 //#endregion
 
 initApp()
@@ -12,38 +10,21 @@ function getData(){
     console.log('getData');
     let data=localStorage.getItem('toDoApp_v1')
     return JSON.parse(data)
-    
-}
+   }
 function saveData(myData){
     console.log(myData);
-    const data = getData()
-    data.lists.push(myData)
-
+    let data = getData();
+    if (!data) data = makeNewData();
+    data.lists.push(myData);
     localStorage.setItem('toDoApp_v1', JSON.stringify(data));
-
 }
-
 function makeNewData(){
     console.log('makeNewData');
-
-    // dummy data husk at tømme lister inden deployment
-let newData={
-    darkMode:false,
-   
-    lists:[  //dataobjecter
-        {
-
-        }
-]
-    
+    return {
+        darkMode: false,
+        lists: []
+    };
 }
-
-
-return newData;
-
-}
-
-
 //#endregion
 
 //#region Controller code
@@ -52,15 +33,14 @@ function initApp(){
     console.log(getData());
     
 //hent data
-currentData = getData()//er defineret globals
+currentData = getData()//er defineret i globals
 
 //evaluer data
 if (currentData==null) {
 //vi har ikke data
    currentData=makeNewData()
    saveData(currentData)
-   
-} 
+  } 
 
 //vi har data
 makeListView(currentData)
@@ -69,51 +49,83 @@ makeListView(currentData)
 //#region View
 function makeListView(data){
     console.log('makeListView');
-    //tøm contaentSection
+//tøm contaentSection
   mainContainerSection.innerHTML='';
 
     data.lists.forEach((list,index) => {
         console.log(list.listName);
 
-        let listContainer=document.createElement('div')
+    let listContainer=document.createElement('div')
 
-        //vis liste,//tempel string
- listContainer.innerHTML=`<h2 onclick="listViewCallBack('showList',${index})">${list.listName}</h2>
- <button onclick="listViewCallBack('showList',${index})">delete</button>
- <button onclick="listViewCallBack('showList',${index})">edit</button>`
+ //vis liste,//tempel string
+ listContainer.innerHTML = `
+  <h2 onclick="listViewCallBack('showList',${index})">${list.listName}</h2>
+  <button onclick="listViewCallBack('delete',${index})">delete</button>
+  <button onclick="listViewCallBack('edit',${index})">edit</button>
+`;
 
-        mainContainerSection.appendChild(listContainer)
+    mainContainerSection.appendChild(listContainer)
    });
+   }
+
+   function listViewCallBack(action, index) {
+  console.log('listViewCallBack:', action, index);
+  if(action === 'delete') {
+    // Slet liste
+    currentData.lists.splice(index, 1);
+    localStorage.setItem('toDoApp_v1', JSON.stringify(currentData));
+    makeListView(currentData);
+  }
+  if(action === 'edit') {
+    // Vis inputfelt og gem-knap til redigering
+    const listDiv = mainContainerSection.children[index];
+    listDiv.innerHTML = `
+      <input id="editInput" value="${currentData.lists[index].listName}" />
+      <button id="saveEditBtn">Gem</button>
+      <button id="cancelEditBtn">Annuller</button>
+    `;
+    document.getElementById('saveEditBtn').onclick = function() {
+      const newName = document.getElementById('editInput').value;
+      currentData.lists[index].listName = newName;
+      localStorage.setItem('toDoApp_v1', JSON.stringify(currentData));
+      makeListView(currentData);
+    };
+    document.getElementById('cancelEditBtn').onclick = function() {
+      makeListView(currentData);
+    };
+  }
+  if(action === 'showList') {
+    alert('der er intet at vise');
+  }
 }
 //#endregion
-//#endregion
-
 
 //buttons
 
-// Opret knappen Huskelist
-let Husk = document.createElement("button");
-Husk.innerText = "Huskeliste";
+// Opret knappen Makenewlist
+let MakeNewList = document.createElement("button");
+MakeNewList.innerText = "MakeNewList";
 
 
 // Tilføj funktionalitet
-Husk.addEventListener("click", createtask);
+MakeNewList.addEventListener("click", createtask);
 
 function createtask(){
     let taskinput = document.createElement('input')
     document.body.appendChild(taskinput);
-
     console.log(taskinput.value)
+    
     // Opret knappen save
     let saveButton = document.createElement("button");
     saveButton.innerText = "save";
-    saveButton.addEventListener("click",() =>{
-        const taskning = taskinput.value 
+    saveButton.addEventListener("click", () => {
+        const taskning = taskinput.value;
         saveData({
-            name:taskning, 
-            id:crypto.randomUUID(),
-            tasks: [] 
-        })
+            listName: taskning, // <-- ændret fra name til listName
+            id: crypto.randomUUID(),
+            tasks: []
+        });
+        makeListView(getData()); // Opdater visningen efter gem
     })
 
     // Tilføj knappen til siden (f.eks. body)
@@ -121,27 +133,34 @@ function createtask(){
 }
 
 // Tilføj knappen til siden (f.eks. body)
-document.body.appendChild(Husk);
+document.body.appendChild(MakeNewList);
 
+// Find knapperne via deres id
+const darkBtn = document.getElementById("darkmode");
+const lightBtn = document.getElementById("Lightmode");
 
-//  <button id=" MakeNewList">MakeNewList</button>
+// Funktion til at skifte mode
+function setDarkMode(isDark) {
+    document.body.classList.toggle("darkmode", isDark);
+    document.body.classList.toggle("lightmode", !isDark);
 
+    // Gem i currentData og localStorage
+    currentData.darkMode = isDark;
+    localStorage.setItem('toDoApp_v1', JSON.stringify(currentData));
+}
 
+// Event listeners
+if (darkBtn) darkBtn.onclick = () => setDarkMode(true);
+if (lightBtn) lightBtn.onclick = () => setDarkMode(false);
 
-// let objData = getData()
-// let obj ={}
+// Når appen starter, sæt mode ud fra data
+function applySavedMode() {
+    if (currentData && typeof currentData.darkMode === "boolean") {
+        setDarkMode(currentData.darkMode);
+    }
+}
 
-// function saveData(){
-//     localStorage.setItem("",JSON,stringify(obj))
-// }
-// //CREATE BUTTON
-// let createButton = document.createElement("button")
-// createButton.innerText = "create new"
-// createButton.addEventListener("click", createInput)
-// mainContainer.appendChild(createButton)
+// Efter initApp()
+initApp();
+applySavedMode();
 
-// //SAVE BUTTON
-// let saveButton = document.createElement("button")
-// saveButton.innerText = "save"
-// saveButton.addEventListener("click", saveData)
-// mainContainer.appendChild(saveButton)

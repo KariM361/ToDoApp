@@ -8,17 +8,10 @@
    --lightgrey:#635c5c;
    --darkgrey:#333131;
    --white:#f8f3f3;
-
 }
+
 main{
     font-family: "Merienda";
-
-}
-
-body{
-border-style: solid;
-border-width: 5px ;
-border-color: #e81d90;
 }
 
 h1{
@@ -38,23 +31,38 @@ button {
     font-family: "Merienda";
     border:5px solid #333131;
     gap: 1.5rem;
-
 }
-#MakeNewList {
+
+
+/*BODY*/
+
+body{
+border-style: solid;
+border-width: 5px ;
+border-color: #e81d90;
+}
+
+#mainContainer {
     border-style:solid;
     background-color: #e81d90;
     color:white;
 }
-
-/* #Maincontainer {
-    background-color: red;
-} */
-
 body.darkmode {
-    background: #34536D, #8E70B1, #E78EF5; 
-    color: #ebe4e4;
+    background: linear-gradient(180deg, #34536D 10%, #8E70B1 30%, #E78EF5 60%); 
+    color: #fcfafa;
 }
 body.lightmode {
     background: #e8e5e5;
     color: #111;
+    }
+/*FOOTER*/
+
+footer{
+
 }
+/*Media*/
+    @media(min-width: 450px){
+        body{
+         background-color: green;
+        }
+    }

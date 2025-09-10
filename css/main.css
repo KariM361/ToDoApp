@@ -15,6 +15,12 @@ main{
 
 }
 
+body{
+border-style: solid;
+border-width: 5px ;
+border-color: #e81d90;
+}
+
 h1{
    font-family: "Merienda";
    text-align: center;
@@ -22,21 +28,33 @@ h1{
    background-color:var(--blue) ;
 }
 div input{
+    gap: 1rem;
     font-family: "Merienda";
 }
 
 /*BUTTONS*/
 button {
+    margin: 1.5rem;
     font-family: "Merienda";
     border:5px solid #333131;
+    gap: 1.5rem;
 
 }
-#Huske {
+#MakeNewList {
     border-style:solid;
-    background-color: #333131;
+    background-color: #e81d90;
     color:white;
 }
 
 /* #Maincontainer {
     background-color: red;
 } */
+
+body.darkmode {
+    background: #34536D, #8E70B1, #E78EF5; 
+    color: #ebe4e4;
+}
+body.lightmode {
+    background: #e8e5e5;
+    color: #111;
+}

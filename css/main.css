@@ -48,12 +48,14 @@ border-color: #e81d90;
     color:white;
 }
 body.darkmode {
-    background: linear-gradient(180deg, #34536D 10%, #8E70B1 30%, #E78EF5 60%); 
+    background: linear-gradient(180deg, #34536D 10%, #8E70B1 30%, #e385f1 60%); 
     color: #fcfafa;
+    button:var(--lightgrey);
 }
 body.lightmode {
-    background: #e8e5e5;
+    background: #e385f1;
     color: #111;
+    
     }
 /*FOOTER*/
 

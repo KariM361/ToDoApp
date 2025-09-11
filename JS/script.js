@@ -48,25 +48,30 @@ makeListView(currentData)
 
 //#region View
 function makeListView(data){
-    console.log('makeListView');
-//tøm contaentSection
-  mainContainerSection.innerHTML='';
+    mainContainerSection.innerHTML = '';
+    data.lists.forEach((list, index) => {
+        let listContainer = document.createElement('div');
+        listContainer.className = "list-item";
+        // Gør listenavnet klikbart
+        let nameBtn = document.createElement('button');
+        nameBtn.textContent = list.listName;
+        nameBtn.onclick = () => showList(index);
 
-    data.lists.forEach((list,index) => {
-        console.log(list.listName);
+        let deleteBtn = document.createElement('button');
+        deleteBtn.textContent = "Slet";
+        deleteBtn.onclick = () => listViewCallBack('delete', index);
 
-    let listContainer=document.createElement('div')
+        let editBtn = document.createElement('button');
+        editBtn.textContent = "Rediger";
+        editBtn.onclick = () => listViewCallBack('edit', index);
 
- //vis liste,//tempel string
- listContainer.innerHTML = `
-  <h2 onclick="listViewCallBack('showList',${index})">${list.listName}</h2>
-  <button onclick="listViewCallBack('delete',${index})">delete</button>
-  <button onclick="listViewCallBack('edit',${index})">edit</button>
-`;
+        listContainer.appendChild(nameBtn);
+        listContainer.appendChild(deleteBtn);
+        listContainer.appendChild(editBtn);
 
-    mainContainerSection.appendChild(listContainer)
-   });
-   }
+        mainContainerSection.appendChild(listContainer);
+    });
+}
 
    function listViewCallBack(action, index) {
   console.log('listViewCallBack:', action, index);
@@ -95,10 +100,80 @@ function makeListView(data){
     };
   }
   if(action === 'showList') {
-    alert('der er intet at vise');
+    alert('udfyld feltet skriv her...');
   }
 }
 //#endregion
+
+function showList(index) {
+    const list = currentData.lists[index];
+    mainContainerSection.innerHTML = '';
+
+    // Overskrift
+    const title = document.createElement('h2');
+    title.textContent = list.listName;
+    mainContainerSection.appendChild(title);
+
+    // Vis tasks med checkbox
+    const ul = document.createElement('ul');
+    list.tasks.forEach((task, taskIndex) => {
+        const li = document.createElement('li');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        // Hvis du vil gemme status, kan du bruge et objekt i stedet for tekst i tasks-arrayet
+        checkbox.checked = task.done === true;
+
+        // Opdater status når der klikkes
+        checkbox.onchange = () => {//opdatere om en underopgave er færdig eller ej og gemme det i data.
+            // Hvis du kun gemmer tekst, så lav tasks til objekter:
+            if (typeof task === "string") {
+                list.tasks[taskIndex] = { text: task, done: checkbox.checked };
+            } else {
+                list.tasks[taskIndex].done = checkbox.checked;
+            }
+            localStorage.setItem('toDoApp_v1', JSON.stringify(currentData));
+            showList(index); // Opdater visningen for at vise gennemstreget tekst
+        };
+
+        // Vis tekst og evt. gennemstregning
+        const span = document.createElement('span');
+        span.textContent = typeof task === "string" ? task : task.text;
+        if ((typeof task === "object" && task.done) || checkbox.checked) {
+            span.style.textDecoration = "line-through";
+            span.style.color = "#888";
+        }
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        ul.appendChild(li);
+    });
+    mainContainerSection.appendChild(ul);
+
+    // Input til ny task
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = 'Tilføj underpunkt...';
+
+    const addBtn = document.createElement('button');
+    addBtn.textContent = 'Tilføj';
+    addBtn.onclick = () => {
+        const value = input.value.trim();
+        if (value.length === 0) return;
+        // Gem som objekt så vi kan huske "done"
+        list.tasks.push({ text: value, done: false });
+        localStorage.setItem('toDoApp_v1', JSON.stringify(currentData));
+        showList(index); // Opdater visningen
+    };
+
+    mainContainerSection.appendChild(input);
+    mainContainerSection.appendChild(addBtn);
+
+    // Tilbage-knap
+    const backBtn = document.createElement('button');
+    backBtn.textContent = 'Tilbage';
+    backBtn.onclick = () => makeListView(currentData);
+    mainContainerSection.appendChild(backBtn);
+}
 
 //buttons
 
@@ -111,25 +186,45 @@ MakeNewList.innerText = "MakeNewList";
 MakeNewList.addEventListener("click", createtask);
 
 function createtask(){
-    let taskinput = document.createElement('input')
-    document.body.appendChild(taskinput);
-    console.log(taskinput.value)
-    
-    // Opret knappen save
+    // Opret input og save-knap i et container-div
+    let inputDiv = document.createElement('div');
+    inputDiv.style.margin = "1rem";
+
+    let taskinput = document.createElement('input');
+    taskinput.type = "text";
+    taskinput.placeholder = "Skriv her...";
+
     let saveButton = document.createElement("button");
     saveButton.innerText = "save";
+
+    // Når der klikkes på save
     saveButton.addEventListener("click", () => {
-        const taskning = taskinput.value;
+        const taskning = taskinput.value.trim();
+        if (taskning.length === 0) {
+            alert("Du skal skrive en opgave!");
+            return;
+        }
         saveData({
-            listName: taskning, // <-- ændret fra name til listName
+            listName: taskning,
             id: crypto.randomUUID(),
             tasks: []
         });
-        makeListView(getData()); // Opdater visningen efter gem
-    })
+        // Fjern input og knap igen
+        inputDiv.remove();
+        // Opdater visningen
+        currentData = getData();
+        makeListView(currentData);
+    });
 
-    // Tilføj knappen til siden (f.eks. body)
-    document.body.appendChild(saveButton);
+    // Tilføj input og knap til container
+    inputDiv.appendChild(taskinput);
+    inputDiv.appendChild(saveButton);
+
+    // Tilføj container til mainContainerSection (så det ikke ligger nederst på siden)
+    mainContainerSection.appendChild(inputDiv);
+
+    // Sæt fokus i inputfeltet
+    taskinput.focus();
 }
 
 // Tilføj knappen til siden (f.eks. body)

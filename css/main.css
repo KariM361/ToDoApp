@@ -18,7 +18,7 @@ h1{
    font-family: "Merienda";
    text-align: center;
    color: black; 
-   background-color:var(--blue) ;
+   background-color:var(--lightpink) ;
 }
 div input{
     gap: 1rem;
@@ -27,10 +27,13 @@ div input{
 
 /*BUTTONS*/
 button {
-    margin: 1.5rem;
+    margin: 0.5rem;
     font-family: "Merienda";
     border:5px solid #333131;
+    border-radius: 25px;
     gap: 1.5rem;
+    background-color: #333131;
+    color: aliceblue;
 }
 
 
@@ -42,29 +45,25 @@ border-width: 5px ;
 border-color: #e81d90;
 }
 
-#mainContainer {
-    border-style:solid;
-    background-color: #e81d90;
-    color:white;
-}
+
 body.darkmode {
     background: linear-gradient(180deg, #34536D 10%, #8E70B1 30%, #e385f1 60%); 
     color: #fcfafa;
-    button:var(--lightgrey);
+    
 }
 body.lightmode {
     background: #e385f1;
     color: #111;
-    
+
     }
 /*FOOTER*/
 
 footer{
+background-color: var(--lightpink);
 
 }
 /*Media*/
-    @media(min-width: 450px){
-        body{
-         background-color: green;
-        }
+
+    @media (min-width: 600px){
+     
     }

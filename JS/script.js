@@ -140,7 +140,7 @@ function showList(index) {
         span.textContent = typeof task === "string" ? task : task.text;
         if ((typeof task === "object" && task.done) || checkbox.checked) {
             span.style.textDecoration = "line-through";
-            span.style.color = "#888";
+            span.style.color = "#626161ff";
         }
 
         li.appendChild(checkbox);
@@ -152,7 +152,7 @@ function showList(index) {
     // Input til ny task
     const input = document.createElement('input');
     input.type = 'text';
-    input.placeholder = 'Tilføj underpunkt...';
+    input.placeholder = 'Tilføj opgave...';
 
     const addBtn = document.createElement('button');
     addBtn.textContent = 'Tilføj';
@@ -192,7 +192,7 @@ function createtask(){
 
     let taskinput = document.createElement('input');
     taskinput.type = "text";
-    taskinput.placeholder = "Skriv her...";
+    taskinput.placeholder = "Write here...";
 
     let saveButton = document.createElement("button");
     saveButton.innerText = "save";

@@ -3,7 +3,7 @@ const mainContainerSection = document.getElementById('mainContainer');
 let currentData = null;
 //#endregion
 
-initApp()
+// initApp()
 
 //#region Model code
 function getData(){
@@ -49,6 +49,7 @@ makeListView(currentData)
 //#region View
 function makeListView(data){
     mainContainerSection.innerHTML = '';
+    mainContainerSection.appendChild(MakeNewList); // <-- tilføj denne linje
     data.lists.forEach((list, index) => {
         let listContainer = document.createElement('div');
         listContainer.className = "list-item";
@@ -137,6 +138,7 @@ function showList(index) {
 
         // Vis tekst og evt. gennemstregning
         const span = document.createElement('span');
+        
         span.textContent = typeof task === "string" ? task : task.text;
         if ((typeof task === "object" && task.done) || checkbox.checked) {
             span.style.textDecoration = "line-through";
@@ -170,7 +172,7 @@ function showList(index) {
 
     // Tilbage-knap
     const backBtn = document.createElement('button');
-    backBtn.textContent = 'Tilbage';
+    backBtn.textContent = 'Back';
     backBtn.onclick = () => makeListView(currentData);
     mainContainerSection.appendChild(backBtn);
 }
@@ -195,7 +197,15 @@ function createtask(){
     taskinput.placeholder = "Write here...";
 
     let saveButton = document.createElement("button");
-    saveButton.innerText = "save";
+    saveButton.innerText = "Save";
+
+    // Tilbage-knap
+    let backButton = document.createElement("button");
+    backButton.innerText = "back";
+    backButton.onclick = () => {
+        inputDiv.remove();
+        makeListView(currentData);
+    };
 
     // Når der klikkes på save
     saveButton.addEventListener("click", () => {
@@ -209,26 +219,26 @@ function createtask(){
             id: crypto.randomUUID(),
             tasks: []
         });
-        // Fjern input og knap igen
+        // Fjern input og knapper igen
         inputDiv.remove();
         // Opdater visningen
         currentData = getData();
         makeListView(currentData);
     });
 
-    // Tilføj input og knap til container
+    // Tilføj input og knapper til container
     inputDiv.appendChild(taskinput);
     inputDiv.appendChild(saveButton);
+    inputDiv.appendChild(backButton);
 
-    // Tilføj container til mainContainerSection (så det ikke ligger nederst på siden)
+    // Tilføj container til mainContainerSection
     mainContainerSection.appendChild(inputDiv);
 
     // Sæt fokus i inputfeltet
     taskinput.focus();
 }
-
 // Tilføj knappen til siden (f.eks. body)
-document.body.appendChild(MakeNewList);
+       mainContainerSection.append(MakeNewList);
 
 // Find knapperne via deres id
 const darkBtn = document.getElementById("darkmode");

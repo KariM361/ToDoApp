@@ -3,7 +3,7 @@ const mainContainerSection = document.getElementById('mainContainer');
 let currentData = null;
 //#endregion
 
-// initApp()
+// initApp() //aner ikke hvorfor den skal slettes her???
 
 //#region Model code
 function getData(){
@@ -126,7 +126,7 @@ function showList(index) {
 
         // Opdater status når der klikkes
         checkbox.onchange = () => {//opdatere om en underopgave er færdig eller ej og gemme det i data.
-            // Hvis du kun gemmer tekst, så lav tasks til objekter:
+            // Hvis man gemmer tekst, så lav opgave(tasks) til objekter:
             if (typeof task === "string") {
                 list.tasks[taskIndex] = { text: task, done: checkbox.checked };
             } else {
@@ -136,7 +136,7 @@ function showList(index) {
             showList(index); // Opdater visningen for at vise gennemstreget tekst
         };
 
-        // Vis tekst og evt. gennemstregning
+        // Vis tekst og gennemstregning
         const span = document.createElement('span');
         
         span.textContent = typeof task === "string" ? task : task.text;
@@ -151,7 +151,7 @@ function showList(index) {
     });
     mainContainerSection.appendChild(ul);
 
-    // Input til ny task
+    // Input til ny task(opgave)
     const input = document.createElement('input');
     input.type = 'text';
     input.placeholder = 'Tilføj opgave...';
@@ -237,7 +237,7 @@ function createtask(){
     // Sæt fokus i inputfeltet
     taskinput.focus();
 }
-// Tilføj knappen til siden (f.eks. body)
+// Tilføj knappen til siden (f.eks. maincontainer)
        mainContainerSection.append(MakeNewList);
 
 // Find knapperne via deres id
@@ -259,8 +259,10 @@ if (darkBtn) darkBtn.onclick = () => setDarkMode(true);
 if (lightBtn) lightBtn.onclick = () => setDarkMode(false);
 
 // Når appen starter, sæt mode ud fra data
+//=== nøjagtigt det samme.
 function applySavedMode() {
-    if (currentData && typeof currentData.darkMode === "boolean") {
+    if (currentData && typeof currentData.darkMode === "boolean")//True/false
+         {
         setDarkMode(currentData.darkMode);
     }
 }

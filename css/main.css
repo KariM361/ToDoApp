@@ -12,6 +12,7 @@
 main{
    font-family: "Gorditas", serif;
      font-weight: 400;
+   
    }
 
 h1{
@@ -19,23 +20,31 @@ h1{
    text-align: center;
    color: black; 
    background-color:var(--lightpink) ;
-   }
+      font-size: 3rem;
+}
+
  h2{
      font-family: "Gorditas", serif;
- }  
+    
+    }  
 div input{
     gap: 1rem;
     font-family: "Gorditas", serif;
+    
 }
 input{
     font-family: "Gorditas", serif;
+ 
 }
 li{
     font-family: "Gorditas", serif;
-}
+  }
+
 
 /*BUTTONS*/
-
+button{
+    font-size: 1.5rem;
+}
 body.darkmode button {
     font-family: "Gorditas", serif;
     margin: 0.5rem;

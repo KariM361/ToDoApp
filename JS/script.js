@@ -25,7 +25,7 @@ function makeNewData(){
         lists: []
     };
 }
-//#endregion
+//#endregion model code
 
 //#region Controller code
 function initApp(){
@@ -45,8 +45,8 @@ if (currentData==null) {
 //vi har data
 makeListView(currentData)
 }
-
-//#region View
+//#endregion controller code
+//#region View code
 function makeListView(data){
     mainContainerSection.innerHTML = '';
     mainContainerSection.appendChild(MakeNewList); // <-- tilføj denne linje
@@ -104,7 +104,7 @@ function makeListView(data){
     alert('udfyld feltet skriv her...');
   }
 }
-//#endregion
+//#endregion View code
 
 function showList(index) {
     const list = currentData.lists[index];
@@ -121,11 +121,13 @@ function showList(index) {
         const li = document.createElement('li');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
+        
         // Hvis du vil gemme status, kan du bruge et objekt i stedet for tekst i tasks-arrayet
         checkbox.checked = task.done === true;
 
         // Opdater status når der klikkes
         checkbox.onchange = () => {//opdatere om en underopgave er færdig eller ej og gemme det i data.
+            
             // Hvis man gemmer tekst, så lav opgave(tasks) til objekter:
             if (typeof task === "string") {
                 list.tasks[taskIndex] = { text: task, done: checkbox.checked };
@@ -151,7 +153,7 @@ function showList(index) {
     });
     mainContainerSection.appendChild(ul);
 
-    // Input til ny task(opgave)
+    // Input til ny task(opgave/underopgave)
     const input = document.createElement('input');
     input.type = 'text';
     input.placeholder = 'Tilføj opgave...';
@@ -161,6 +163,7 @@ function showList(index) {
     addBtn.onclick = () => {
         const value = input.value.trim();
         if (value.length === 0) return;
+        
         // Gem som objekt så vi kan huske "done"
         list.tasks.push({ text: value, done: false });
         localStorage.setItem('toDoApp_v1', JSON.stringify(currentData));

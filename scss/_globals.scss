@@ -1,0 +1,46 @@
+//alt globalt der går gennem helesiden som ex. body, h1, h2, a, p.
+@use'colors';
+@import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&display=swap');
+
+
+
+main{
+   font-family: "Gorditas", serif;
+     font-weight: 400;
+   }
+
+h1{
+ font-family: "Gorditas", serif;
+   text-align: center;
+   color: black; 
+   background-color:var(--lightpink) ;
+      font-size: 3rem;
+}
+
+ h2{
+     font-family: "Gorditas", serif;
+ }
+ body{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-style: solid;
+    border-width: 10px ;
+    border-color: #e81d90;
+}
+
+.darkmode > header h1{
+    color:#e8ebed;
+}
+body.darkmode {
+    background: linear-gradient(180deg, #34536D 10%, #8E70B1 30%, #e385f1 60%); 
+    color: #e8ebed;
+    
+}
+body.lightmode {
+    background: #e385f1;
+    color: #111;
+    } 
+li{
+   list-style: none; 
+}

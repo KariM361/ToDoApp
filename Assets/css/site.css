@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&display=swap");
+footer {
+  background-color: #E78EF5;
+}
+
+main {
+  font-family: "Gorditas", serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-family: "Gorditas", serif;
+  text-align: center;
+  color: black;
+  background-color: var(--lightpink);
+  font-size: 3rem;
+}
+
+h2 {
+  font-family: "Gorditas", serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border-style: solid;
+  border-width: 10px;
+  border-color: #e81d90;
+}
+
+.darkmode > header h1 {
+  color: #e8ebed;
+}
+
+body.darkmode {
+  background: linear-gradient(180deg, #34536D 10%, #8E70B1 30%, #e385f1 60%);
+  color: #e8ebed;
+}
+
+body.lightmode {
+  background: #e385f1;
+  color: #111;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  font-size: 1.5rem;
+}
+
+body.darkmode button {
+  font-family: "Gorditas", serif;
+  margin: 0.5rem;
+  border: 5px solid #333131;
+  border-radius: 25px;
+  gap: 1.5rem;
+  background-color: #333131;
+  color: #e8ebed;
+}
+
+div input.darkmode {
+  color: #151414;
+}
+
+body.lightmode button {
+  margin: 0.5rem;
+  font-family: "Gorditas", serif;
+  border: 5px solid #333131;
+  border-radius: 25px;
+  gap: 1.5rem;
+  background-color: #e8ebed;
+  color: #111;
+  border-color: #111;
+}/*# sourceMappingURL=site.css.map */
